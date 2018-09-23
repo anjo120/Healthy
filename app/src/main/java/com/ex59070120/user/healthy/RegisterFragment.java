@@ -44,7 +44,7 @@ public class RegisterFragment extends Fragment{
 
         String _regis_userIdStr = _register_user_id.getText().toString();
         String _regis_passwordStr = _register_password.getText().toString();
-        String _regis_repasswordStr = _register_password.getText().toString();
+        String _regis_repasswordStr = _register_repassword.getText().toString();
 
         if (    _regis_userIdStr.isEmpty() ||
                 _regis_passwordStr.isEmpty() ||
@@ -106,6 +106,11 @@ public class RegisterFragment extends Fragment{
                         .replace(R.id.main_view,new LoginFragment())
                         .addToBackStack(null)
                         .commit();
+                Toast.makeText(
+                        getActivity(),
+                        "การสมัครเสร็จสิ้น",
+                        Toast.LENGTH_SHORT
+                ).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
