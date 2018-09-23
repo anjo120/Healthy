@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -30,6 +31,11 @@ public class RegisterFragment extends Fragment{
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Button _registerBtn = (Button) getView().findViewById(R.id.register_btn);
+        _registerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
         fbAuth = FirebaseAuth.getInstance();
 
         EditText _register_user_id = (EditText) getActivity().findViewById(R.id.register_userid);
@@ -83,7 +89,8 @@ public class RegisterFragment extends Fragment{
                     });
 
         }
-
+    }
+});
 
 
     }
