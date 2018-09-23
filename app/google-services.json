@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "746389945176",
+    "firebase_url": "https://healthy-a542e.firebaseio.com",
+    "project_id": "healthy-a542e",
+    "storage_bucket": "healthy-a542e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746389945176:android:9f272edcc36c2c83",
+        "android_client_info": {
+          "package_name": "com.ex59070120.user.healthy.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "746389945176-4pvg8g2mur5un37nfqubn8rie0ehbllb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ex59070120.user.healthy.app",
+            "certificate_hash": "9aa57399c52a162b5fc142f9922dd10ce58126d1"
+          }
+        },
+        {
+          "client_id": "746389945176-vou27fh2fgt6eua084qudmg7ik1ahp81.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKChlrVPjSu9wZGfArJkG6wl13a6DvY14"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "746389945176-vou27fh2fgt6eua084qudmg7ik1ahp81.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

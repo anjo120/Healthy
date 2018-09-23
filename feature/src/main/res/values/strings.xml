@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Healthy</string>
+    <string name="user_id">Email</string>
+    <string name="password">Password</string>
+    <string name="repassword">Repassword</string>
+    <string name="name">Name</string>
+    <string name="age">Age</string>
+    <string name="weightText">Weight</string>
+    <string name="loginText">LOGIN</string>
+    <string name="registerBtn">Register Next Account</string>
+    <string name="registerText">Register</string>
+    <string name="bmiText">BMI</string>
+    <string name="height">Height (cm)</string>
+    <string name="weight">Weight (kg)</string>
+    <string name="weightFormDate">วันที่ชั่ง</string>
+    <string name="weightFormWeight">น้ำหนัก(kg)</string>
+</resources>
