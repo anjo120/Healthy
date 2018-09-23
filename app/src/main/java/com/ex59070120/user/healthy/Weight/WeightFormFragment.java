@@ -71,7 +71,7 @@ public class WeightFormFragment extends Fragment{
                     );
                     _firestore.collection("myfitness").document(_uid)
                             .collection("weight").document(_dateStr)
-                            .set(_date).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            .set(_data).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             getActivity()
