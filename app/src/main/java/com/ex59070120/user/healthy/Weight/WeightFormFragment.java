@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ex59070120.user.healthy.R;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -33,6 +34,8 @@ public class WeightFormFragment extends Fragment{
         super.onActivityCreated(savedInstanceState);
         _firestore = FirebaseFirestore.getInstance();
         _fbauth = FirebaseAuth.getInstance();
+        initBackBtn();
+        initSaveBtn();
 
     }
 
@@ -55,7 +58,6 @@ public class WeightFormFragment extends Fragment{
         _saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 EditText _date = (EditText) getView().findViewById(R.id.weight_form_date);
                 EditText _weight = (EditText) getView().findViewById(R.id.weight_form_weight);
@@ -83,6 +85,16 @@ public class WeightFormFragment extends Fragment{
                                     Toast.LENGTH_SHORT
                             ).show();
                             Log.d("WEIGHT FORM","SAVE NEW WEIGHT");
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(
+                                    getActivity(),
+                                    "ERROR",
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                            Log.d("WEIGHT FORM","ERROR");
                         }
                     });
                 }else {
