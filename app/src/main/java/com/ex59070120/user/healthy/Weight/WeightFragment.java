@@ -31,6 +31,8 @@ public class WeightFragment extends Fragment{
         _firestore = FirebaseFirestore.getInstance();
         _fbAuth = FirebaseAuth.getInstance();
 
+        weights.add(new Weight("20 Sep 2018",60,"UP"));
+
         getWeight();
         initAddWeight();
     }
@@ -58,7 +60,8 @@ public class WeightFragment extends Fragment{
 
     private void getWeight(){
         String _uid = _fbAuth.getCurrentUser().getUid();
-        _firestore.collection("mufitness").document(_uid).collection("weight")
+        _firestore.collection("myfitness")
+                .document(_uid).collection("weight")
                 .orderBy("date", Query.Direction.ASCENDING).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
