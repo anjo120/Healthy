@@ -28,17 +28,33 @@
                         android:text="01 Jan 2018"
                         android:textSize="18dp" />
 
-                    <TextView
-                        android:id="@+id/sleep_wakeup"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="20.00 - 5.00"
-                        android:textSize="25dp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/sleep_sleep"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="20.00"
+                            android:textSize="25dp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" - "
+                            android:textSize="25dp" />
+                        <TextView
+                            android:id="@+id/sleep_wakeup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="5.00"
+                            android:textSize="25dp" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/sleep_totaltime"
+                    android:id="@+id/sleep_dream"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginRight="25dp"

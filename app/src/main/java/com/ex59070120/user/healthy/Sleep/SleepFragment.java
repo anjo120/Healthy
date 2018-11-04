@@ -17,7 +17,9 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class SleepFragment extends Fragment {
 
@@ -32,7 +34,7 @@ public class SleepFragment extends Fragment {
         _firestore = FirebaseFirestore.getInstance();
         _fbAuth = FirebaseAuth.getInstance();
 
-        sleeps.add(new Sleep("20 Sep 2018","23.00","7.00"));
+        sleeps.add(new Sleep("20 Sep 2018","23.00","7.00","9.00"));
 
         getSleep();
         initAddSleep();
@@ -68,7 +70,19 @@ public class SleepFragment extends Fragment {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        
+                        sleeps.clear();
+                        if (task.isSuccessful()) {
+                            String dream_time = "";
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String date = document.getData().get("date").toString();
+                                Time time_sleep = Time.valueOf(document.getData().get("sleep").toString());
+                                Time time_wakeup = Time.valueOf(document.getData().get("sleep").toString());
+
+                            }
+
+                        } else {
+                            Log.d("TAG", "Error getting documents: ", task.getException());
+                        }
                     }
                 });
     }

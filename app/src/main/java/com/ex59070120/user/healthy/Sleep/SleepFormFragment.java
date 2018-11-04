@@ -63,7 +63,7 @@ public class SleepFormFragment extends Fragment{
 
                 if (!_dateStr.isEmpty() && !_sleepTimeStr.isEmpty() && !_wakeupTimeStr.isEmpty()){
                     Sleep _data = new Sleep(
-                            _dateStr,_sleepTimeStr, _wakeupTimeStr
+                            _dateStr,_sleepTimeStr, _wakeupTimeStr, ""
                     );
                     _firestore.collection("myfitness").document(_uid)
                             .collection("sleep").document(_dateStr)
