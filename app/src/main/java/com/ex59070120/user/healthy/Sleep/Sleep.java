@@ -7,6 +7,13 @@ public class Sleep {
     private String date;
     private String time_sleep;
     private String time_wakeup;
+    public Sleep() {}
+    public Sleep( String id, String date,String time_sleep,String time_wakeup) {
+        this.id = id;
+        this.date = date;
+        this.time_sleep = time_sleep;
+        this.time_wakeup = time_wakeup;
+    }
 
     public String getID() {
         return id;

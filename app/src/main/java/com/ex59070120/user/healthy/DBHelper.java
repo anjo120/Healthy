@@ -44,7 +44,7 @@ public class DBHelper extends SQLiteOpenHelper {
         ArrayList<Sleep> sleeps = new ArrayList<>();
         Sleep sleep;
         sql = this.sql;
-        Cursor cursor = sql.query("sleep",null,null,null,null,null,"date DESC",null);
+        Cursor cursor = sql.query("sleep",null,null,null,null,null,"date DESC");
         if (cursor != null){
             cursor.moveToFirst();
         }
