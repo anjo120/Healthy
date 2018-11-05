@@ -18,6 +18,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -34,7 +36,7 @@ public class SleepFragment extends Fragment {
         _firestore = FirebaseFirestore.getInstance();
         _fbAuth = FirebaseAuth.getInstance();
 
-        sleeps.add(new Sleep("20 Sep 2018","23.00","7.00","9.00"));
+        sleeps.add(new Sleep("20 Sep 2018","23:00","7:00","9:00"));
 
         getSleep();
         initAddSleep();
@@ -73,11 +75,35 @@ public class SleepFragment extends Fragment {
                         sleeps.clear();
                         if (task.isSuccessful()) {
                             String dream_time = "";
+                            int countLoop = 0;
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String date = document.getData().get("date").toString();
-                                Time time_sleep = Time.valueOf(document.getData().get("sleep").toString());
-                                Time time_wakeup = Time.valueOf(document.getData().get("sleep").toString());
+                                String time_sleep = document.getData().get("time_sleep").toString();
+                                String time_wakeup = document.getData().get("time_wakeup").toString();
+                                String time_dream = document.getData().get("time_dream").toString();
+                                SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+                                try {
+                                    Date time_sleepDate = format.parse(time_sleep);
+                                    Date time_wakeupDate = format.parse(time_wakeup);
+                                    long diff = 0;
+                                    if (time_sleepDate.getTime() > time_wakeupDate.getTime()) {
+                                        diff = (86400000 - time_sleepDate.getTime())+time_wakeupDate.getTime();
+                                    }else {
+                                        diff = time_wakeupDate.getTime() - time_sleepDate.getTime();
+                                    }
+                                    long difHour = diff/(60*60*1000)%24;
+                                    long difMin = diff/(60*1000)%60;
+                                    Date time_dreamDate = format.parse(String.valueOf(difHour)+":"+String.valueOf(difMin));
+                                     format.format(time_dreamDate);
 
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                sleeps.add(new Sleep(date, time_sleep, time_wakeup, time_dream));
+                                ListView _weightList = (ListView) getView().findViewById(R.id.sleep_list);
+                                SleepItem _weightItem = new SleepItem(getActivity(), R.layout.fragment_sleep_item, sleeps);
+                                _weightList.setAdapter((ListAdapter) _weightItem);
+                                countLoop += 1;
                             }
 
                         } else {
@@ -86,4 +112,6 @@ public class SleepFragment extends Fragment {
                     }
                 });
     }
+
+
 }
