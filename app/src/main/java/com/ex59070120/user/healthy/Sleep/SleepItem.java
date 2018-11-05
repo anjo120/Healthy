@@ -35,7 +35,7 @@ public class SleepItem extends ArrayAdapter<Sleep> {
         _date.setText(_row.getDate());
         _time_sleep.setText(String.valueOf(_row.getTime_sleep()));
         _time_wakeup.setText(String.valueOf(_row.getTime_wakeup()));
-
+        _time_dream.setText(String.valueOf(_row.getTime_dream()));
         return _sleepItem;
     }
 }
