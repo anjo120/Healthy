@@ -45,6 +45,7 @@ public class SleepFormFragment extends Fragment{
             _date_sleep.setText(date);
             _time_sleep.setText(sleepTime);
             _time_wakeup.setText(wakeupTime);
+
         } else {
             initSleepFormSaveBtn();
         }

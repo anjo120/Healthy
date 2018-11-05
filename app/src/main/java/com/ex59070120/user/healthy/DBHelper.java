@@ -18,7 +18,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS sleep ("+
                                 "id INTEGER PRIMARY KEY AUTOINCREMENT,"+
-                                "date VARCHAR(6), time_sleep VARCHAR(6), time_wakeup VARCHAR(6),time_dream VARCHAR(6));";
+                                "date VARCHAR(6), time_sleep VARCHAR(6), time_wakeup VARCHAR(6));";
         db.execSQL(CREATE_TABLE);
     }
 
@@ -35,7 +35,6 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("date",sleep.getDate());
         values.put("time_sleep",sleep.getTime_sleep());
         values.put("time_wakeup",sleep.getTime_wakeup());
-        values.put("time_dream",sleep.getTime_dream());
         sql.insert("sleep",null,values);
         sql.close();
     }
@@ -54,7 +53,6 @@ public class DBHelper extends SQLiteOpenHelper {
             sleep.setDate(cursor.getString(1));
             sleep.setTime_sleep(cursor.getString(2));
             sleep.setTime_wakeup(cursor.getString(3));
-            sleep.setTime_dream(cursor.getString(4));
             sleeps.add(sleep);
             cursor.moveToNext();
         }
@@ -68,7 +66,6 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("date", sleep.getDate());
         values.put("time_sleep", sleep.getTime_sleep());
         values.put("time_wakeup", sleep.getTime_wakeup());
-        values.put("time_dream", sleep.getTime_dream());
         sql.update("sleep",
                 values,
                 "id = ? ",
