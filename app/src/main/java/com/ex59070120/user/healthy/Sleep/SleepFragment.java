@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.*;
 import android.widget.*;
 
+import com.ex59070120.user.healthy.DBHelper;
 import com.ex59070120.user.healthy.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -17,30 +18,53 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 public class SleepFragment extends Fragment {
 
-    FirebaseAuth _fbAuth;
-    FirebaseFirestore _firestore;
-    ArrayList<Sleep> sleeps = new ArrayList<>();
+    //FirebaseAuth _fbAuth;
+    //FirebaseFirestore _firestore;
+    List<Sleep> sleeps = new ArrayList<>();
+    DBHelper helper;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        _firestore = FirebaseFirestore.getInstance();
-        _fbAuth = FirebaseAuth.getInstance();
-
-        sleeps.add(new Sleep("20 Sep 2018","23:00","7:00","9:00"));
-
-        getSleep();
         initAddSleep();
-
+        helper = new DBHelper(getContext());
+        //_firestore = FirebaseFirestore.getInstance();
+        //_fbAuth = FirebaseAuth.getInstance();
+        //sleeps.add(new Sleep("20 Sep 2018","23:00","7:00","9:00"));
+        //getSleep();
+        sleeps = helper.getSleepList();
+        if (!sleeps.isEmpty()) {
+            SleepItem _sleepAdapter = new SleepItem(getActivity(), R.layout.fragment_sleep_item, sleeps);
+            ListView _sleepList = (ListView) getView().findViewById(R.id.sleep_list);
+            _sleepList.setAdapter(_sleepAdapter);
+            _sleepList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    int sleepSize = sleeps.size();
+                    Bundle bundle = new Bundle();
+                    int columnId = position*(-1)+sleepSize;
+                    bundle.putInt("id", columnId);
+                    bundle.putString("date", sleeps.get(position).getDate());
+                    bundle.putString("time_sleep", sleeps.get(position).getTime_sleep());
+                    bundle.putString("time_wakeup", sleeps.get(position).getTime_wakeup());
+                    SleepFormFragment sleepForm = new SleepFormFragment();
+                    sleepForm.setArguments(bundle);
+                    getActivity()
+                            .getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.main_view, sleepForm)
+                            .addToBackStack(null)
+                            .commit();
+                }
+            });
+        }
     }
 
     @Nullable
@@ -63,7 +87,7 @@ public class SleepFragment extends Fragment {
             }
         });
     }
-
+/*
     private void getSleep(){
         String _uid = _fbAuth.getCurrentUser().getUid();
         _firestore.collection("myfitness")
@@ -111,6 +135,9 @@ public class SleepFragment extends Fragment {
                     }
                 });
     }
+*/
+
+
 
 
 }

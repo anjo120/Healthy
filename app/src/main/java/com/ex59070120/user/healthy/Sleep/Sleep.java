@@ -3,16 +3,18 @@ package com.ex59070120.user.healthy.Sleep;
 import java.util.Date;
 
 public class Sleep {
+    private String id;
     private String date;
     private String time_sleep;
     private String time_wakeup;
     private String time_dream;
 
-    public Sleep(String date,String time_sleep,String time_wakeup,String time_dream) {
-        this.date = date;
-        this.time_sleep = time_sleep;
-        this.time_wakeup = time_wakeup;
-        this.time_dream = time_dream;
+    public String getID() {
+        return id;
+    }
+
+    public void setID(String id) {
+        this.id = id;
     }
 
     public String getDate() {
