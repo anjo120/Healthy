@@ -14,4 +14,7 @@
     <string name="weight">Weight (kg)</string>
     <string name="weightFormDate">วันที่ชั่ง</string>
     <string name="weightFormWeight">น้ำหนัก(kg)</string>
+    <string name="sleepFormDate">วันที่บันทึก</string>
+    <string name="sleepFormSleep">เวลาเข้านอน</string>
+    <string name="sleepFormWakeup">เวลาตื่นนอน</string>
 </resources>

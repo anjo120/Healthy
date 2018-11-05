@@ -17,7 +17,7 @@
         <EditText
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:hint="@string/weightFormDate"
+            android:hint="@string/sleepFormDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -27,7 +27,7 @@
         <EditText
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:hint="@string/weightFormWeight"
+            android:hint="@string/sleepFormSleep"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -36,7 +36,7 @@
         <EditText
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:hint="@string/weightFormWeight"
+            android:hint="@string/sleepFormWakeup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
