@@ -30,12 +30,12 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public void addSleep(Sleep sleep) {
-        sql = this.sql;
+        sql = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("date",sleep.getDate());
         values.put("time_sleep",sleep.getTime_sleep());
         values.put("time_wakeup",sleep.getTime_wakeup());
-        sql.insert("sleep",null,values);
+        sql.insert("sleep", null, values);
         sql.close();
     }
 
