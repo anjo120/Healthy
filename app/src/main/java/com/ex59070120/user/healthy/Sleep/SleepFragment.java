@@ -74,7 +74,6 @@ public class SleepFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         sleeps.clear();
                         if (task.isSuccessful()) {
-                            String dream_time = "";
                             int countLoop = 0;
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String date = document.getData().get("date").toString();
@@ -100,9 +99,9 @@ public class SleepFragment extends Fragment {
                                     e.printStackTrace();
                                 }
                                 sleeps.add(new Sleep(date, time_sleep, time_wakeup, time_dream));
-                                ListView _weightList = (ListView) getView().findViewById(R.id.sleep_list);
-                                SleepItem _weightItem = new SleepItem(getActivity(), R.layout.fragment_sleep_item, sleeps);
-                                _weightList.setAdapter((ListAdapter) _weightItem);
+                                ListView _sleepList = (ListView) getView().findViewById(R.id.sleep_list);
+                                SleepItem _sleepItem = new SleepItem(getActivity(), R.layout.fragment_sleep_item, sleeps);
+                                _sleepList.setAdapter((ListAdapter) _sleepItem);
                                 countLoop += 1;
                             }
 
