@@ -48,7 +48,7 @@ public class SleepFormFragment extends Fragment{
     }
 
     void initSleepFormSaveBtn(){
-        Button _saveBtn = (Button) getView().findViewById(R.id.weight_form_save_btn);
+        Button _saveBtn = (Button) getView().findViewById(R.id.sleep_form_save_btn);
         _saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
