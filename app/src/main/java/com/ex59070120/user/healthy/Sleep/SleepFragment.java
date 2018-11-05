@@ -87,57 +87,5 @@ public class SleepFragment extends Fragment {
             }
         });
     }
-/*
-    private void getSleep(){
-        String _uid = _fbAuth.getCurrentUser().getUid();
-        _firestore.collection("myfitness")
-                .document(_uid).collection("sleep")
-                .orderBy("date", Query.Direction.ASCENDING).get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        sleeps.clear();
-                        if (task.isSuccessful()) {
-                            int countLoop = 0;
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                String date = document.getData().get("date").toString();
-                                String time_sleep = document.getData().get("time_sleep").toString();
-                                String time_wakeup = document.getData().get("time_wakeup").toString();
-                                String time_dream = document.getData().get("time_dream").toString();
-                                SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-                                try {
-                                    Date time_sleepDate = format.parse(time_sleep);
-                                    Date time_wakeupDate = format.parse(time_wakeup);
-                                    long diff = 0;
-                                    if (time_sleepDate.getTime() > time_wakeupDate.getTime()) {
-                                        diff = (86400000 - time_sleepDate.getTime())+time_wakeupDate.getTime();
-                                    }else {
-                                        diff = time_wakeupDate.getTime() - time_sleepDate.getTime();
-                                    }
-                                    long difHour = diff/(60*60*1000)%24;
-                                    long difMin = diff/(60*1000)%60;
-                                    Date time_dreamDate = format.parse(String.valueOf(difHour)+":"+String.valueOf(difMin));
-                                    time_dream = format.format(time_dreamDate);
-
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
-                                sleeps.add(new Sleep(date, time_sleep, time_wakeup, time_dream));
-                                ListView _sleepList = (ListView) getView().findViewById(R.id.sleep_list);
-                                SleepItem _sleepItem = new SleepItem(getActivity(), R.layout.fragment_sleep_item, sleeps);
-                                _sleepList.setAdapter((ListAdapter) _sleepItem);
-                                countLoop += 1;
-                            }
-
-                        } else {
-                            Log.d("TAG", "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-    }
-*/
-
-
-
 
 }

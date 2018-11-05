@@ -18,7 +18,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS sleep ("+
                                 "id INTEGER PRIMARY KEY AUTOINCREMENT,"+
-                                "date VARCHAR(6), time_sleep VARCHAR(6), time_wakeup VARCHAR(6));";
+                                "date VARCHAR(6), time_sleep VARCHAR(6), time_wakeup VARCHAR(6),time_dream VARCHAR(6));";
         db.execSQL(CREATE_TABLE);
     }
 
