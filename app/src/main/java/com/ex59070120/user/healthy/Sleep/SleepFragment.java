@@ -93,7 +93,7 @@ public class SleepFragment extends Fragment {
                                     long difHour = diff/(60*60*1000)%24;
                                     long difMin = diff/(60*1000)%60;
                                     Date time_dreamDate = format.parse(String.valueOf(difHour)+":"+String.valueOf(difMin));
-                                     format.format(time_dreamDate);
+                                    time_dream = format.format(time_dreamDate);
 
                                 } catch (ParseException e) {
                                     e.printStackTrace();
