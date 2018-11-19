@@ -2,6 +2,7 @@ package com.ex59070120.user.healthy.Comment;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,15 +10,20 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.ex59070120.user.healthy.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommentItem extends ArrayAdapter<Comment> {
+public class CommentItem extends ArrayAdapter {
 
-    List<Comment> comments = new ArrayList<>();
+    ArrayList<JSONObject> comments = new ArrayList<>();
     Context context;
 
-    public CommentItem(Context context, int resouce, ArrayList<Comment> object){
+    public CommentItem(Context context, int resouce, ArrayList<JSONObject> object){
         super(context,resouce,object);
         this.context = context;
         this.comments = object;
@@ -25,20 +31,25 @@ public class CommentItem extends ArrayAdapter<Comment> {
 
     @NonNull
     public View getView(int position, View convertView, ViewGroup parent) {
-        View _commentItem = LayoutInflater.from(context).inflate(R.layout.fragment_comment_item, parent, false);
-        TextView _post_id = (TextView) _commentItem.findViewById(R.id.post_id);
-        TextView _comment_id = (TextView) _commentItem.findViewById(R.id.comment_id);
-        TextView _comment_body = (TextView) _commentItem.findViewById(R.id.comment_body);
-        TextView _comment_name = (TextView) _commentItem.findViewById(R.id.comment_name);
-        TextView _comment_email = (TextView) _commentItem.findViewById(R.id.comment_email);
-
-        Comment _row = comments.get(position);
-        _post_id.setText(String.valueOf(_row.getPostId()));
-        _comment_id.setText(String.valueOf(_row.getCommentId()));
-        _comment_body.setText(_row.getCommentBody());
-        _comment_name.setText(_row.getCommentName());
-        _comment_email.setText(_row.getCommentEmail());
-
-        return _commentItem;
+        View commentItem = LayoutInflater.from(context).inflate(R.layout.fragment_comment_item, parent, false);
+        JSONObject commentObj = comments.get(position);
+        TextView commentPostId = commentItem.findViewById(R.id.post_id);
+        TextView commentId = commentItem.findViewById(R.id.comment_id);
+        TextView commentBody  = commentItem.findViewById(R.id.comment_body);
+        TextView commentName = commentItem.findViewById(R.id.comment_name);
+        TextView commentEmail  = commentItem.findViewById(R.id.comment_email);
+        try
+        {
+            commentPostId.setText(commentObj.getString("postId"));
+            commentId.setText(commentObj.getString("id"));
+            commentBody.setText(commentObj.getString("body"));
+            commentName.setText("name : " + commentObj.getString("name"));
+            commentEmail.setText("email : " + commentObj.getString("email"));
+        }
+        catch (JSONException e)
+        {
+            Log.d("test", "catch JSONException : " + e.getMessage());
+        }
+        return commentItem;
     }
 }

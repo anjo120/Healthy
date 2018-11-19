@@ -7,7 +7,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="5dp">
+        android:padding="10dp"
+        android:background="#FFFFEE">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -15,7 +16,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/post_id"/>
+                android:id="@+id/post_id"
+                android:textSize="15dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -23,20 +25,24 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/comment_id"/>
+                android:id="@+id/comment_id"
+                android:textSize="15dp"/>
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/comment_body"/>
+            android:id="@+id/comment_body"
+            android:textSize="13dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/comment_name"/>
+            android:id="@+id/comment_name"
+            android:textSize="10dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/comment_email"/>
+            android:id="@+id/comment_email"
+            android:textSize="10dp"/>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

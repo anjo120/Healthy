@@ -1,5 +1,6 @@
 package com.ex59070120.user.healthy.Comment;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,6 +23,10 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -29,9 +34,9 @@ import java.util.Collection;
 import java.util.List;
 
 public class CommentFragment extends Fragment {
-    ArrayList<Comment> comments = new ArrayList<>();
-    ListView _commentList;
-    CommentItem _commentItem;
+    int postId;
+    String rs;
+    JSONArray jsonArray;
 
     @Nullable
     @Override
@@ -43,8 +48,6 @@ public class CommentFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        _commentList = (ListView) getView().findViewById(R.id.list_comment);
-        _commentItem = new CommentItem(getActivity(), R.layout.fragment_comment_item, comments);
         backPostBtn();
         getPostId();
     }
@@ -72,47 +75,52 @@ public class CommentFragment extends Fragment {
     }
 
     public void getComment(String id){
-        OkHttpClient client = new OkHttpClient();
-        String comment_url = "https://jsonplaceholder.typicode.com/posts/"+id+"/comments";
-
-        Request request = new Request.Builder().url(comment_url).build();
-        client.newCall(request).enqueue(new Callback() {
+        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
             @Override
-            public void onFailure(Request request, IOException e) {
-                e.printStackTrace();
-            }
+            protected Void doInBackground(Void... voids) {
+                OkHttpClient client = new OkHttpClient();
+                try {
+                    String url = "https://jsonplaceholder.typicode.com/posts/" + postId + "/comments";
+                    Request request = new Request.Builder().url(url).build();
 
-            @Override
-            public void onResponse(Response response) throws IOException {
-                if (response.isSuccessful()){
-                    String myResponse = response.body().string();
-                    Gson gson = new Gson();
-                    Type type = new TypeToken<Collection<Comment>>(){}.getType();
-                    Collection<Comment> comment = gson.fromJson(myResponse, type);
-                    Comment[] commentList = comment.toArray(new Comment[comment.size()]);
-
-                    for(int i=0 ; i < commentList.length ; i++){
-                        Comment data = new Comment();
-                        int postId = commentList[i].getPostId();
-                        int id = commentList[i].getCommentId();
-                        String body = commentList[i].getCommentBody();
-                        String name = commentList[i].getCommentName();
-                        String email = commentList[i].getCommentEmail();
-                        data.setPostId(postId);
-                        data.setCommentId(id);
-                        data.setCommentBody(body);
-                        data.setCommentName(name);
-                        data.setCommentEmail(email);
-                        comments.add(data);
-                    }
+                    Response response = client.newCall(request).execute();
+                    rs = response.body().string();
+                    jsonArray = new JSONArray(rs);
                 }
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        _commentList.setAdapter(_commentItem);
-                    }
-                });
+                catch (IOException e)
+                {
+                    Log.d("test", "catch IOException : " + e.getMessage());
+                }
+                catch (JSONException e)
+                {
+                    Log.d("test", "catch JSONException : " + e.getMessage());
+                }
+                return null;
             }
-        });
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+
+                try
+                {
+                    final ArrayList<JSONObject> comments = new ArrayList<>();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject obj = jsonArray.getJSONObject(i);
+                        comments.add(obj);
+                    }
+                    /*ProgressBar progressBar = getView().findViewById(R.id.comment_progress_bar);
+                    progressBar.setVisibility(View.GONE);*/
+                    ListView commentListView = getView().findViewById(R.id.list_comment);
+                    CommentItem commentItem = new CommentItem(getContext(), R.layout.fragment_comment_item, comments);
+                    commentListView.setAdapter(commentItem);
+                }
+                catch (JSONException e)
+                {
+                    Log.d("test", "catch JSONException : " + e.getMessage());
+                }
+            }
+        };
+        task.execute();
     }
 }
