@@ -107,7 +107,7 @@ public class PostFragment extends Fragment {
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             Bundle bundle = new Bundle();
                             try{
-                                bundle.putInt("post id", posts.get(position).getInt("id"));
+                                bundle.putInt("POST ID => ", posts.get(position).getInt("id"));
                             }
                             catch (JSONException e)
                             {
