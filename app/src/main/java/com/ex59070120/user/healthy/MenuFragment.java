@@ -13,9 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.ex59070120.user.healthy.Sleep.SleepFragment;
 import com.ex59070120.user.healthy.Weight.WeightFragment;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -32,7 +32,7 @@ public class MenuFragment extends Fragment {
         menu_list.clear();
         menu_list.add("BMI");
         menu_list.add("Weight");
-        menu_list.add("Setup");
+        menu_list.add("Sleep");
         menu_list.add("Sign out");
 
         ListView _menu = (ListView) getView().findViewById(R.id.menu_list);
@@ -64,6 +64,13 @@ public class MenuFragment extends Fragment {
                             .replace(R.id.main_view, new LoginFragment())
                             .addToBackStack(null).commit();
                     Log.d("MENU", "GO OUT SYSTEM");
+                }else if (menu_list.get(position).equals("Sleep")) {
+                    getActivity()
+                            .getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.main_view,new SleepFragment())
+                            .addToBackStack(null).commit();
+                    Log.d("MENU","GO TO SLEEP DAILY");
                 }
             }
         });
