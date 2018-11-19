@@ -33,6 +33,7 @@ public class MenuFragment extends Fragment {
         menu_list.add("BMI");
         menu_list.add("Weight");
         menu_list.add("Sleep");
+        menu_list.add("Post");
         menu_list.add("Sign out");
 
         ListView _menu = (ListView) getView().findViewById(R.id.menu_list);
