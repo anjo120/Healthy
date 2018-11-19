@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.ex59070120.user.healthy.Post.PostFragment;
 import com.ex59070120.user.healthy.Sleep.SleepFragment;
 import com.ex59070120.user.healthy.Weight.WeightFragment;
 import com.google.firebase.auth.FirebaseAuth;
@@ -72,6 +73,13 @@ public class MenuFragment extends Fragment {
                             .replace(R.id.main_view,new SleepFragment())
                             .addToBackStack(null).commit();
                     Log.d("MENU","GO TO SLEEP DAILY");
+                }else if(menu_list.get(position).equals("POST")){
+                    getActivity()
+                            .getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.main_view,new PostFragment())
+                            .addToBackStack(null).commit();
+                    Log.d("MENU","GO TO POST");
                 }
             }
         });

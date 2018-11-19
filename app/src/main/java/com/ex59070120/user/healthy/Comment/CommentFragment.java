@@ -73,9 +73,9 @@ public class CommentFragment extends Fragment {
 
     public void getComment(String id){
         OkHttpClient client = new OkHttpClient();
-        String post_url = "https://jsonplaceholder.typicode.com/posts/"+id+"/comments";
+        String comment_url = "https://jsonplaceholder.typicode.com/posts/"+id+"/comments";
 
-        Request request = new Request.Builder().url(post_url).build();
+        Request request = new Request.Builder().url(comment_url).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {

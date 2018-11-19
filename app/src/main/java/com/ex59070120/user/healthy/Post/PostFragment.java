@@ -74,7 +74,7 @@ public class PostFragment extends Fragment {
     public void getPost(){
         final PostItem _postItem = new PostItem(getActivity(), R.layout.fragment_post_item, posts);
         OkHttpClient client = new OkHttpClient();
-        String post_url = "http://jsonplaceholder.typicode.com/posts";
+        String post_url = "https://jsonplaceholder.typicode.com/posts";
 
         Request request = new Request.Builder().url(post_url).build();
         client.newCall(request).enqueue(new Callback() {
