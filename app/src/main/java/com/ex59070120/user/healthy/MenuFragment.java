@@ -73,7 +73,7 @@ public class MenuFragment extends Fragment {
                             .replace(R.id.main_view,new SleepFragment())
                             .addToBackStack(null).commit();
                     Log.d("MENU","GO TO SLEEP DAILY");
-                }else if(menu_list.get(position).equals("POST")){
+                }else if(menu_list.get(position).equals("Post")){
                     getActivity()
                             .getSupportFragmentManager()
                             .beginTransaction()
