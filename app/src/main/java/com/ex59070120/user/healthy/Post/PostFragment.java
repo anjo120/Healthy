@@ -105,19 +105,22 @@ public class PostFragment extends Fragment {
                     postListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Bundle bundle = new Bundle();
                             try{
-                                bundle.putInt("POST ID => ", posts.get(position).getInt("id"));
+                                Bundle bundle = new Bundle();
+                                bundle.putString("postId", posts.get(position).getString("id"));
+                                Log.d("POST", "postId => " + posts.get(position).getString("id"));
+                                CommentFragment commentFragment = new CommentFragment();
+                                commentFragment.setArguments(bundle);
+                                getActivity().getSupportFragmentManager()
+                                        .beginTransaction()
+                                        .replace(R.id.main_view, commentFragment)
+                                        .addToBackStack(null)
+                                        .commit();
                             }
                             catch (JSONException e)
                             {
                                 Log.d("test", "catch JSONException : " + e.getMessage());
                             }
-                            Fragment fragment = new CommentFragment();
-                            fragment.setArguments(bundle);
-                            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                            ft.replace(R.id.main_view, fragment).addToBackStack(null).commit();
                         }
                     });
                 }
