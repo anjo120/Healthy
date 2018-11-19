@@ -72,7 +72,7 @@ public class PostFragment extends Fragment {
     }
 
     public void getPost(){
-        final PostItem _postItem = new PostItem(getActivity(), R.layout.fragment_post_item, posts);
+
         OkHttpClient client = new OkHttpClient();
         String post_url = "https://jsonplaceholder.typicode.com/posts";
 
@@ -120,7 +120,7 @@ public class PostFragment extends Fragment {
                                 FragmentManager fragmentManager = getActivity()
                                                                     .getSupportFragmentManager();
                                 fragmentManager.beginTransaction()
-                                        .replace(R.id.activity_main, fragment)
+                                        .replace(R.id.main_view, fragment)
                                         .addToBackStack(null).commit();
                             }
                         });

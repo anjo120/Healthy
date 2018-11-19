@@ -20,7 +20,7 @@ public class PostItem extends ArrayAdapter<Post> {
     List<Post> posts = new ArrayList<>();
     Context context;
 
-    public PostItem(Context context, int resource, List<Post> objects) {
+    public PostItem(Context context, int resource, ArrayList<Post> objects) {
         super(context, resource, objects);
         this.posts = objects;
         this.context = context;
