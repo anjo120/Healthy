@@ -35,7 +35,7 @@ public class PostItem extends ArrayAdapter<Post> {
         TextView _post_body = (TextView) _postItem.findViewById(R.id.post_body);
 
         Post _row = posts.get(position);
-        _post_id.setText(_row.getPost_id());
+        _post_id.setText(String.valueOf(_row.getPost_id()));
         _post_title.setText(_row.getPost_title());
         _post_body.setText(_row.getPost_body());
 
