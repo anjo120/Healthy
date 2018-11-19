@@ -37,11 +37,13 @@ public class PostItem extends ArrayAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View postItem = LayoutInflater.from(context).inflate(R.layout.fragment_post_item, parent, false);
         JSONObject postObj = posts.get(position);
+        TextView postId = postItem.findViewById(R.id.post_id);
         TextView postTitle = postItem.findViewById(R.id.post_title);
         TextView postBody  = postItem.findViewById(R.id.post_body);
         try
         {
-            postTitle.setText(postObj.getString("id") + " : " + postObj.getString("title"));
+            postId.setText(postObj.getString("id"));
+            postTitle.setText(postObj.getString("title"));
             postBody.setText(postObj.getString("body"));
         }
         catch (JSONException e)

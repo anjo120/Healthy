@@ -95,7 +95,8 @@ public class PostFragment extends Fragment {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject obj = jsonArray.getJSONObject(i);
                         posts.add(obj);
-                    }/*
+                    }
+                    /*
                     ProgressBar progressBar = getView().findViewById(R.id.post_progress_bar);
                     progressBar.setVisibility(View.GONE);*/
                     ListView postListView = getView().findViewById(R.id.list_post);
