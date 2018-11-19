@@ -107,7 +107,7 @@ public class PostFragment extends Fragment {
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             try{
                                 Bundle bundle = new Bundle();
-                                bundle.putString("postId", posts.get(position).getString("id"));
+                                bundle.putInt("postId", posts.get(position).getInt("id"));
                                 Log.d("POST", "postId => " + posts.get(position).getString("id"));
                                 CommentFragment commentFragment = new CommentFragment();
                                 commentFragment.setArguments(bundle);

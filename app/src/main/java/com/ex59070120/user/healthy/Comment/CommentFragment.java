@@ -68,19 +68,19 @@ public class CommentFragment extends Fragment {
     }
     public void getPostId(){
         Bundle bundle = this.getArguments();
-        String id = getArguments().getString("id");
-        getComment(id);
-        Log.d("COMMENT", "IN POST ID "+id);
+        postId = getArguments().getInt("postId");
+        getComment(postId);
+        Log.d("COMMENT", "IN POST ID "+postId);
 
     }
 
-    public void getComment(String id){
+    public void getComment(final int postId){
         AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
                 OkHttpClient client = new OkHttpClient();
                 try {
-                    String url = "https://jsonplaceholder.typicode.com/posts/" + postId + "/comments";
+                    String url = "https://jsonplaceholder.typicode.com/posts/" + String.valueOf(postId) + "/comments";
                     Request request = new Request.Builder().url(url).build();
 
                     Response response = client.newCall(request).execute();
