@@ -74,40 +74,41 @@ public class LoginFragment extends Fragment{
                 }
             });
         }
-        private void signIn(String email, String password){
-            fbAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                @Override
-                public void onSuccess(AuthResult authResult) {
-                    FirebaseUser user = fbAuth.getCurrentUser();
-                    if (user.isEmailVerified()) {
-                        Log.d("USER", "GO TO MENU");
-                        getActivity()
-                                .getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.main_view, new MenuFragment())
-                                .addToBackStack(null).commit();
-                    } else {
+        private void signIn(String email, String password) {
+            if (email == null) {
+                fbAuth.signInWithEmailAndPassword(email , password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        FirebaseUser user = fbAuth.getCurrentUser();
+                        if (user.isEmailVerified()) {
+                            Log.d("USER" , "GO TO MENU");
+                            getActivity()
+                                    .getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.main_view , new MenuFragment())
+                                    .addToBackStack(null).commit();
+                        } else {
+                            Toast.makeText(
+                                    getActivity() ,
+                                    "User นี้ยังไม่ได้ทำการ Confirm Email" ,
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                            Log.d("USER" , "EMAIL IS NOT VERIFIED");
+                            fbAuth.signOut();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
                         Toast.makeText(
-                                getActivity(),
-                                "User นี้ยังไม่ได้ทำการ Confirm Email",
+                                getActivity() ,
+                                "กรุณากรอกข้อมูลให้ถูกต้อง" ,
                                 Toast.LENGTH_SHORT
                         ).show();
-                        Log.d("USER", "EMAIL IS NOT VERIFIED");
-                        fbAuth.signOut();
+                        Log.d("USER" , "ERROR IN SIGNIN");
                     }
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(
-                            getActivity(),
-                            "กรุณากรอกข้อมูลให้ถูกต้อง",
-                            Toast.LENGTH_SHORT
-                    ).show();
-                    Log.d("USER", "ERROR IN SIGNIN");
-                }
-            });
+                });
+            }
         }
-
     }
 
