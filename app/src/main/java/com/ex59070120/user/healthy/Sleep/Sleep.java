@@ -6,13 +6,14 @@ public class Sleep {
     private String date;
     private String time_sleep;
     private String time_wakeup;
-    private String time_dream;
+    private String id;
+    public Sleep(){}
 
-    public Sleep(String date,String time_sleep,String time_wakeup,String time_dream) {
+    public Sleep(String date,String time_sleep,String time_wakeup,String id) {
         this.date = date;
         this.time_sleep = time_sleep;
         this.time_wakeup = time_wakeup;
-        this.time_dream = time_dream;
+        this.id = id;
     }
 
     public String getDate() {
@@ -39,9 +40,9 @@ public class Sleep {
         this.time_wakeup = time_wakeup;
     }
 
-    public String getTime_dream() {
-        return time_dream;
+    public String getId() {
+        return id;
     }
 
-    public void setTime_dream(String time_dream) { this.time_dream = time_dream; }
+    public void setId(String time_dream) { this.id = time_dream; }
 }
