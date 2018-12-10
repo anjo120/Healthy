@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
+
+import com.ex59070120.user.healthy.DBHelper;
 import com.ex59070120.user.healthy.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -14,8 +16,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SleepFormFragment extends Fragment{
-    FirebaseFirestore _firestore;
-    FirebaseAuth _fbauth;
+    private DBHelper helper;
+    private int ID;
+
 
     @Nullable
     @Override
@@ -26,10 +29,27 @@ public class SleepFormFragment extends Fragment{
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        _firestore = FirebaseFirestore.getInstance();
-        _fbauth = FirebaseAuth.getInstance();
         initSleepFormBackBtn();
-        initSleepFormSaveBtn();
+        Bundle bundle = getArguments();
+
+        if (bundle != null) {
+            Log.d("SLEEPFORM", "bundle is not null");
+            EditText _date = (EditText) getView().findViewById(R.id.sleep_form_date);
+            EditText _sleepTime = (EditText) getView().findViewById(R.id.sleep_form_time_sleep);
+            EditText _wakeupTime = (EditText) getView().findViewById(R.id.sleep_form_time_wakeup);
+
+            initSleepFormUpdateBtn();
+
+            ID = bundle.getInt("id");
+            String date = bundle.getString("date");
+            String sleepTime = bundle.getString("sleep_time");
+            String wakeupTime = bundle.getString("wakeup_time");
+            _date.setText(date);
+            _sleepTime.setText(sleepTime);
+            _wakeupTime.setText(wakeupTime);
+        } else {
+            initSleepFormSaveBtn();
+        }
 
     }
 
@@ -46,64 +66,59 @@ public class SleepFormFragment extends Fragment{
             }
         });
     }
+    void initSleepFormUpdateBtn(){
+        Button _saveBtn = (Button) getView().findViewById(R.id.weight_form_save_btn);
+        _saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                EditText _date = (EditText) getView().findViewById(R.id.sleep_form_date);
+                EditText _sleepTime = (EditText) getView().findViewById(R.id.sleep_form_time_sleep);
+                EditText _wakeupTime = (EditText) getView().findViewById(R.id.sleep_form_time_wakeup);
+                String _dateStr = _date.getText().toString();
+                String _sleepTimeStr = _sleepTime.getText().toString();
+                String _wakeupTimeStr = _wakeupTime.getText().toString();
+
+                Sleep sleep = new Sleep();
+                sleep.setId(String.valueOf(ID));
+                sleep.setDate(_dateStr);
+                sleep.setTime_wakeup(_wakeupTimeStr);
+                sleep.setTime_sleep(_sleepTimeStr);
+                helper.updateSleep(sleep);
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, new SleepFragment())
+                        .addToBackStack(null).commit();
+                Log.d("SLEEP FORM","BACK TO SLEEPS");
+            }
+        });
+
+    }
     void initSleepFormSaveBtn(){
         Button _saveBtn = (Button) getView().findViewById(R.id.weight_form_save_btn);
         _saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                EditText _date_sleep = (EditText) getView().findViewById(R.id.sleep_form_date);
-                EditText _time_sleep = (EditText) getView().findViewById(R.id.sleep_form_time_sleep);
-                EditText _time_wakeup = (EditText) getView().findViewById(R.id.sleep_form_time_wakeup);
-                String _dateStr = _date_sleep.getText().toString();
-                String _sleepTimeStr = _time_sleep.getText().toString();
-                String _wakeupTimeStr = _time_wakeup.getText().toString();
-                String _uid = _fbauth.getCurrentUser().getUid();
+                EditText _date = (EditText) getView().findViewById(R.id.sleep_form_date);
+                EditText _sleepTime = (EditText) getView().findViewById(R.id.sleep_form_time_sleep);
+                EditText _wakeupTime = (EditText) getView().findViewById(R.id.sleep_form_time_wakeup);
+                String _dateStr = _date.getText().toString();
+                String _sleepTimeStr = _sleepTime.getText().toString();
+                String _wakeupTimeStr = _wakeupTime.getText().toString();
 
-                if (!_dateStr.isEmpty() && !_sleepTimeStr.isEmpty() && !_wakeupTimeStr.isEmpty()){
-                    Sleep _data = new Sleep(
-                            _dateStr,_sleepTimeStr, _wakeupTimeStr, ""
-                    );
-                    _firestore.collection("myfitness").document(_uid)
-                            .collection("sleep").document(_dateStr)
-                            .set(_data).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            getActivity()
-                                    .getSupportFragmentManager()
-                                    .beginTransaction()
-                                    .replace(R.id.main_view, new SleepFragment())
-                                    .addToBackStack(null).commit();
-                            Toast.makeText(
-                                    getActivity(),
-                                    "บันทึกเสร็จสิ้น",
-                                    Toast.LENGTH_SHORT
-                            ).show();
-                            Log.d("SLEEP FORM","SAVE NEW SLEEP");
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(
-                                    getActivity(),
-                                    "ERROR",
-                                    Toast.LENGTH_SHORT
-                            ).show();
-                            Log.d("SLEEP FORM","ERROR");
-                        }
-                    });
-                }else {
-                    Toast.makeText(
-                            getActivity(),
-                            "กรุณากรอกข้อมูลให้ครบถ้วน",
-                            Toast.LENGTH_SHORT
-                    ).show();
-                    Log.d("SLEEP FORM","HAVE EMPTY FIELD");
-                }
-
-
-
+                Sleep sleep = new Sleep();
+                sleep.setDate(_dateStr);
+                sleep.setTime_wakeup(_wakeupTimeStr);
+                sleep.setTime_sleep(_sleepTimeStr);
+                helper.addSleep(sleep);
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view , new SleepFragment())
+                        .addToBackStack(null).commit();
+                Log.d("SLEEP FORM","BACK TO SLEEPS");
             }
         });
     }
